@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+    <h2>Search for Cheap Flights</h2>
+
+
+    <div class="tabbable">
+        <ul class="nav nav-pills nav-sm nav-no-br mb10" id="flightChooseTab">
+            <li><a href="#flight-search-1"
+                   data-toggle="tab">Round Trip</a>
+            </li>
+            <li class="active"><a href="#flight-search-2" data-toggle="tab">One Way</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade" id="flight-search-1">
+                <h:form styleClass="search">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6 cities">
+                                    <div class="form-group form-group-lg form-group-icon-left">
+                                        <i class="fa fa-map-marker input-icon"></i>
+                                        <label>From</label>
+                                        <span style="position: relative; display: block; direction: ltr;"
+                                              class="twitter-typeahead">
+
+                                            <p:autoComplete value="#{searchFlightController.cityFrom}" var="cityFrom"
+                                                            itemValue="#{cityFrom}" itemLabel="#{cityFrom.name}"
+                                                            completeMethod="#{citiesController.completeCities}"
+                                                            converter="#{cityConverter}"
+                                                            style="position: relative; vertical-align: top; background-color: transparent; cursor:text;"
+                                                            styleClass="typehead form-control tt-input city"
+                                                            autocomplete="true"
+                                                            placeholder="City, Airport, U.S. Zip"
+                                            />
+
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 cities">
+                                    <div class="form-group form-group-lg form-group-icon-left">
+                                        <i class="fa fa-map-marker input-icon"></i>
+                                        <label>To</label>
+                                        <span style="position: relative; display: block; direction: ltr;"
+                                              class="twitter-typeahead">
+
+                                            <p:autoComplete value="#{searchFlightController.cityTo}" var="cityTo"
+                                                            itemValue="#{cityTo}" itemLabel="#{cityTo.name}"
+                                                            completeMethod="#{citiesController.completeCities}"
+                                                            converter="#{cityConverter}"
+                                                            style="position: relative; vertical-align: top; background-color: transparent; cursor:text;"
+                                                            styleClass="typehead form-control tt-input city"
+                                                            autocomplete="true"
+                                                            placeholder="City, Airport, U.S. Zip"
+                                            />
+
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-daterange" data-date-format="M d, D">
+                                <div class="row">
+                                    <div class="col-md-4 date">
+                                        <div class="form-group form-group-lg form-group-icon-left">
+                                            <i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                            <label>Departing</label>
+                                            <p:calendar value="#{searchFlightController.dateDepart}"
+                                                        pattern="dd-MM-yyyy" mask="true"
+                                                        timeZone="#{searchFlightController.timeZone}"
+                                                        styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 date">
+                                        <div class="form-group form-group-lg form-group-icon-left">
+                                            <i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                            <label>Returning</label>
+                                            <p:calendar value="#{searchFlightController.dateReturn}"
+                                                        pattern="dd-MM-yyyy" mask="true"
+                                                        timeZone="#{searchFlightController.timeZone}"
+                                                        styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-lg form-group-select-plus">
+                                            <label>Passengers</label>
+
+                                            <div class="btn-group btn-group-select-num"
+                                                 data-toggle="buttons">
+
+                                                <p:remoteCommand name="passCount" action="#{searchFlightController.updatePassengersCount}"/>
+
+                                                <label class="btn btn-primary active" onclick="passCount([{name:'count', value:1}]);">
+                                                    <input name="options"
+                                                           type="radio"/>1</label>
+                                                <label class="btn btn-primary" onclick="passCount([{name:'count', value:2}]);">
+                                                    <input name="options"
+                                                           type="radio"/>2</label>
+                                                <label class="btn btn-primary" onclick="passCount([{name:'count', value:3}]);">
+                                                    <input name="options"
+                                                           type="radio"/>3</label>
+                                                <label class="btn btn-primary">
+                                                    <input name="options"
+                                                           type="radio"/>3+</label>
+                                            </div>
+                                            <h:selectOneMenu value="#{searchFlightController.passengersCount}"
+                                                             styleClass="form-control hidden">
+                                                <f:selectItem itemValue="1" itemLabel="1"/>
+                                                <f:selectItem itemValue="2" itemLabel="2"/>
+                                                <f:selectItem itemValue="3" itemLabel="3"/>
+                                                <f:selectItem itemValue="4" itemLabel="4"/>
+                                                <f:selectItem itemValue="5" itemLabel="5"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p:commandButton styleClass="btn btn-primary btn-lg"
+                                     actionListener="#{searchFlightController.search}" value="Search for Flights"
+                                     ajax="false"></p:commandButton>
+                </h:form>
+            </div>
+            <div class="tab-pane fade in active" id="flight-search-2">
+                <h:form styleClass="search">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6 cities">
+                                    <div class="form-group form-group-lg form-group-icon-left">
+                                        <i class="fa fa-map-marker input-icon"></i>
+                                        <label>From</label>
+                                        <span style="position: relative; display: block; direction: ltr;"
+                                              class="twitter-typeahead">
+                                                    <p:autoComplete value="#{searchFlightController.cityFrom}"
+                                                                    var="cityFrom" itemValue="#{cityFrom}"
+                                                                    itemLabel="#{cityFrom.name}"
+                                                                    completeMethod="#{citiesController.completeCities}"
+                                                                    converter="#{cityConverter}"
+                                                                    style="position: relative; vertical-align: top; background-color: transparent; cursor:text;"
+                                                                    styleClass="typehead form-control tt-input city"
+                                                                    autocomplete="true"
+                                                                    placeholder="City, Airport, U.S. Zip"
+                                                    />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 cities">
+                                    <div class="form-group form-group-lg form-group-icon-left">
+                                        <i class="fa fa-map-marker input-icon"></i>
+                                        <label>To</label>
+                                        <span style="position: relative; display: block; direction: ltr;"
+                                              class="twitter-typeahead">
+                                                <p:autoComplete value="#{searchFlightController.cityTo}"
+                                                                var="cityTo" itemValue="#{cityTo}"
+                                                                itemLabel="#{cityTo.name}"
+                                                                completeMethod="#{citiesController.completeCities}"
+                                                                converter="#{cityConverter}"
+                                                                style="position: relative; vertical-align: top; background-color: transparent; cursor:text;"
+                                                                styleClass="typehead form-control tt-input city"
+                                                                autocomplete="true"
+                                                                placeholder="City, Airport, U.S. Zip"
+                                                />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-daterange" data-date-format="M d, D">
+                                <div class="row">
+                                    <div class="col-md-4 date">
+                                        <div class="form-group form-group-lg form-group-icon-left">
+                                            <i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                                            <label>Departing</label>
+                                            <p:calendar value="#{searchFlightController.dateDepart}"
+                                                        pattern="MM-dd-yyyy" mask="true"
+                                                        timeZone="#{searchFlightController.timeZone}"
+                                                        styleClass="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-group-lg form-group-select-plus">
+                                            <label>Passengers</label>
+
+                                            <div class="btn-group btn-group-select-num"
+                                                 data-toggle="buttons">
+
+                                                <p:remoteCommand name="passCount" action="#{searchFlightController.updatePassengersCount}"/>
+
+                                                <label class="btn btn-primary active" onclick="passCount([{name:'count', value:1}]);">
+                                                    <input name="options"
+                                                           type="radio"/>1</label>
+                                                <label class="btn btn-primary" onclick="passCount([{name:'count', value:2}]);">
+                                                    <input name="options"
+                                                           type="radio"/>2</label>
+                                                <label class="btn btn-primary" onclick="passCount([{name:'count', value:3}]);">
+                                                    <input name="options"
+                                                           type="radio"/>3</label>
+                                                <label class="btn btn-primary">
+                                                    <input name="options"
+                                                           type="radio"/>3+</label>
+                                            </div>
+                                            <h:selectOneMenu value="#{searchFlightController.passengersCount}"
+                                                             styleClass="form-control hidden">
+                                                <f:selectItem itemValue="1" itemLabel="1"/>
+                                                <f:selectItem itemValue="2" itemLabel="2"/>
+                                                <f:selectItem itemValue="3" itemLabel="3"/>
+                                                <f:selectItem itemValue="4" itemLabel="4"/>
+                                                <f:selectItem itemValue="5" itemLabel="5"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p:commandButton styleClass="btn btn-primary btn-lg"
+                                     actionListener="#{searchFlightController.search}" value="Search for Flights"
+                                     ajax="false"></p:commandButton>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</ui:composition>
+</html>

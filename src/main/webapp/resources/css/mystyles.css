@@ -1,0 +1,38 @@
+.cities ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{
+    color: white !important;
+    text-decoration: none;
+    background-color: #eaa91a;
+    background-position: 0px center;
+    background-image: none;
+    background-repeat: repeat-x;
+}
+
+.cities .ui-inputfield {
+    margin: 0px;
+    outline: medium none;
+    padding: 4px;
+    font-weight: normal;
+    width: 100%;
+    border: medium none;
+    box-shadow: none !important;
+    cursor: text !important;
+    font-size: 15px;
+    color: #A1A1A1 !important;
+}
+
+.date .ui-inputfield {
+    margin: 0px;
+    outline: medium none;
+    padding: 4px;
+    font-weight: normal;
+    width: 100%;
+    border: medium none;
+    box-shadow: none !important;
+    cursor: text !important;
+    font-size: 15px;
+    color: #A1A1A1 !important;
+}
+
+
+
+
