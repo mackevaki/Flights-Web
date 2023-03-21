@@ -45,6 +45,7 @@ public class FlightDB extends AbstractObjectDB<Flight> {
         flight.setCode(rs.getString("code"));
         flight.setDateDepart(dateDepart);
         flight.setDateCome(dateCome);
+        flight.setPrice(rs.getDouble("price"));
 
         Aircraft aircraft = AircraftDB.getInstance().executeObject(AircraftDB.getInstance().getObjectByID(rs.getLong("aircraft_id")));
         flight.setAircraft(aircraft);

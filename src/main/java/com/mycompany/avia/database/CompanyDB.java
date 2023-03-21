@@ -27,6 +27,7 @@ public class CompanyDB extends AbstractObjectDB<Company> {
         company.setId(rs.getLong("id"));
         company.setName(rs.getString("name"));
         company.setDesc(rs.getString("desc"));
+        company.setIcon(rs.getBytes("icon"));
         return company;
     }
 }

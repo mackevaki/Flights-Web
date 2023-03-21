@@ -18,6 +18,8 @@ public class Flight {
     
     private long id;
     private String code;
+
+    private double price;
     
     @XmlElement(required = true)
     @ExceptionMessage(message = "Заполните дату вылета")
@@ -103,5 +105,13 @@ public class Flight {
 
     public void setExistFreePlaces(boolean existFreePlaces) {
         this.existFreePlaces = existFreePlaces;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

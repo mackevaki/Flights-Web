@@ -75,7 +75,7 @@
                                             <i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                             <label>Departing</label>
                                             <p:calendar value="#{searchFlightController.dateDepart}"
-                                                        pattern="dd-MM-yyyy" mask="true"
+                                                        pattern="MM-dd-yyyy" mask="true"
                                                         timeZone="#{searchFlightController.timeZone}"
                                                         styleClass="form-control"/>
                                         </div>
@@ -84,8 +84,8 @@
                                         <div class="form-group form-group-lg form-group-icon-left">
                                             <i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                             <label>Returning</label>
-                                            <p:calendar value="#{searchFlightController.dateReturn}"
-                                                        pattern="dd-MM-yyyy" mask="true"
+                                            <p:calendar value="#{searchFlightController.dateDepart}"
+                                                        pattern="MM-dd-yyyy" mask="true"
                                                         timeZone="#{searchFlightController.timeZone}"
                                                         styleClass="form-control"/>
                                         </div>
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     <p:commandButton styleClass="btn btn-primary btn-lg"
-                                     actionListener="#{searchFlightController.search}" value="Search for Flights"
+                                     action="#{searchFlightController.search}" value="Search for Flights"
                                      ajax="false"></p:commandButton>
                 </h:form>
             </div>
@@ -227,7 +227,7 @@
                         </div>
                     </div>
                     <p:commandButton styleClass="btn btn-primary btn-lg"
-                                     actionListener="#{searchFlightController.search}" value="Search for Flights"
+                                     action="#{searchFlightController.search}" value="Search for Flights"
                                      ajax="false"></p:commandButton>
                 </h:form>
             </div>

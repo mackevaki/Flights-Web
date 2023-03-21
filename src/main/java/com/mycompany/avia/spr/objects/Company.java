@@ -5,6 +5,16 @@ public class Company {
     private String name;
     private String desc;
 
+    private byte[] icon;
+
+    public byte[] getIcon() {
+        return icon;
+    }
+
+    public void setIcon(byte[] icon) {
+        this.icon = icon;
+    }
+
     public long getId() {
         return id;
     }

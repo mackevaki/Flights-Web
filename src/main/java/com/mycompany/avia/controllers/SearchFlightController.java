@@ -10,10 +10,7 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 @Named
 @SessionScoped
@@ -30,9 +27,12 @@ public class SearchFlightController implements Serializable {
 
     private TimeZone timeZone = GMTCalendar.getInstance().getTimeZone();
 
-    public void search(ActionEvent event) {
-        List<Flight> flights = searchImpl.searchFlight(dateDepart.getTime(), cityFrom, cityTo);
+    private List<Flight> flights = new ArrayList<>();
+
+    public String search() {
+        flights = searchImpl.searchFlight(dateDepart.getTime(), cityFrom, cityTo);
         System.out.println("flights = " + flights);
+        return "result";
     }
 
     public void updatePassengersCount() {
@@ -87,5 +87,13 @@ public class SearchFlightController implements Serializable {
 
     public void setTimeZone(TimeZone timeZone) {
         this.timeZone = timeZone;
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 }
